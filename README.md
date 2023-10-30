@@ -95,3 +95,6 @@ inv_mix_columns(state)
 inv_shift_rows(state)
 print(matrix2bytes(state))
 ```
+Resultado obtido
+![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/44845442/a05e0c40-104e-4e58-8b17-1494a322b4e7)
+
