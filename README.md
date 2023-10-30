@@ -15,3 +15,81 @@ Apresentação da aula de Segurança Cibernética 2023/2 - PPGCC - UFSCar
 
 
 A substituição por si só introduz não linearidade, mas carece de distribuição uniforme em todo o estado, tornando-o suscetível a ataques separados em nível de byte. Para aumentar a segurança, as substituições devem ser alternadas com a codificação para garantir que influenciem todos os bytes. Isso aumenta a complexidade algébrica e fortalece o sistema contra a criptoanálise.
+
+
+
+Solução de problema:
+```
+# all the code bellow belongs to cryptoHack as a base code and matrix to be decoded
+def shift_rows(s):
+    s[0][1], s[1][1], s[2][1], s[3][1] = s[1][1], s[2][1], s[3][1], s[0][1]
+    s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
+    s[0][3], s[1][3], s[2][3], s[3][3] = s[3][3], s[0][3], s[1][3], s[2][3]
+
+
+
+# learned from http://cs.ucsb.edu/~koc/cs178/projects/JT/aes.c
+xtime = lambda a: (((a << 1) ^ 0x1B) & 0xFF) if (a & 0x80) else (a << 1)
+
+
+def mix_single_column(a):
+    # see Sec 4.1.2 in The Design of Rijndael
+    t = a[0] ^ a[1] ^ a[2] ^ a[3]
+    u = a[0]
+    a[0] ^= t ^ xtime(a[0] ^ a[1])
+    a[1] ^= t ^ xtime(a[1] ^ a[2])
+    a[2] ^= t ^ xtime(a[2] ^ a[3])
+    a[3] ^= t ^ xtime(a[3] ^ u)
+
+
+def mix_columns(s):
+    for i in range(4):
+        mix_single_column(s[i])
+
+
+def inv_mix_columns(s):
+    # see Sec 4.1.3 in The Design of Rijndael
+    for i in range(4):
+        u = xtime(xtime(s[i][0] ^ s[i][2]))
+        v = xtime(xtime(s[i][1] ^ s[i][3]))
+        s[i][0] ^= u
+        s[i][1] ^= v
+        s[i][2] ^= u
+        s[i][3] ^= v
+
+    mix_columns(s)
+
+
+state = [
+    [108, 106, 71, 86],
+    [96, 62, 38, 72],
+    [42, 184, 92, 209],
+    [94, 79, 8, 54],
+]
+
+# CryptoHack code ends here
+
+
+
+# Function made for aes2 issue
+def matrix2bytes(matrix_array):
+   char_result = []
+   for col in matrix_array:
+       for line in col:
+           char_result.append(chr(line))
+
+   char_result = ''.join(char_result)
+   return char_result
+
+# Function made for aes5 issue, we just copy shift columns and modify to shift rows instead of columns
+def inv_shift_rows(s):
+    s[0][1], s[1][1], s[2][1], s[3][1] = s[3][1], s[0][1], s[1][1], s[2][1]
+    s[0][2], s[1][2], s[2][2], s[3][2] = s[2][2], s[3][2], s[0][2], s[1][2]
+    s[0][3], s[1][3], s[2][3], s[3][3] = s[1][3], s[2][3], s[3][3], s[0][3]
+    return s
+
+# Calls made to solve aes5 issue
+inv_mix_columns(state)
+inv_shift_rows(state)
+print(matrix2bytes(state))
+```
