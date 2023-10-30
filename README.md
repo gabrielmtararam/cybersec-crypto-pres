@@ -1,6 +1,6 @@
 # cybersec-crypto-pres 
 
-Apresentação da aula de Segurança Cibernética PPGCC - UFSCar 
+Apresentação da aula de Segurança Cibernética 2023/2 - PPGCC - UFSCar
 
 ![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/48295298/5754002e-3b51-404c-af5e-c50c5fae510b)
 
