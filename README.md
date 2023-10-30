@@ -4,6 +4,16 @@ Apresentação da aula de Segurança Cibernética 2023/2 - PPGCC - UFSCar
 
 ![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/48295298/5754002e-3b51-404c-af5e-c50c5fae510b)
 
+Uma combinação de ShiftRow e MixColunas são utilizadas então para garantir isso, fazendo com que cada byte afete todos os demais em 2 rodadas.
+
+O ShiftRow é uma transformação mais simples, na qual as linhas são deslocadas n-1 colunas para a esquerda, em que n é o número da linha. O objetivo dessa etapa é evitar que as colunas sejam criptografadas de forma independente, pois o AES degeneraria em quatro cifras de bloco independentes.
+
+![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/100847921/1971950d-ff41-4409-b2be-077bc43e23c4)
+
+
+Já o MixColunas é mais complexo, pois realiza a multiplicação de Matrix no campo de Galois e Rijndael entre as colunas da matriz de estado e uma matriz predefinida, afetando todos os bytes da coluna resultante.
+
+![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/100847921/023cdebd-f0ef-4834-a988-473fbdf4cc93)
 
 
 
