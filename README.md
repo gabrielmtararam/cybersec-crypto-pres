@@ -4,6 +4,11 @@ Apresentação da aula de Segurança Cibernética 2023/2 - PPGCC - UFSCar
 
 ![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/48295298/5754002e-3b51-404c-af5e-c50c5fae510b)
 
+Com a "difusão", temos o espalhamento de cada parte da entrada da cifra relacionando com cada parte da saída, para evitar tentativas de deduzir a chave.
+
+A substituição por si só introduz não linearidade, mas carece de distribuição uniforme em todo o estado, tornando-o suscetível a ataques separados em nível de byte. Para aumentar a segurança, as substituições devem ser alternadas com a codificação para garantir que influenciem todos os bytes. Isso aumenta a complexidade algébrica e fortalece o sistema contra a criptoanálise.<br>
+Para imprimir a resposta, usamos a função bytes2matrix, que converte um texto em uma matriz. Ela faz isso separando o texto em pedaços de 4 caracteres e os organiza em diferentes linhas da matriz, além de separar cada caracter em colunas diferentes.
+
 Uma combinação de ShiftRow e MixColunas são utilizadas então para garantir isso, fazendo com que cada byte afete todos os demais em 2 rodadas.
 
 O ShiftRow é uma transformação mais simples, na qual as linhas são deslocadas n-1 colunas para a esquerda, em que n é o número da linha. O objetivo dessa etapa é evitar que as colunas sejam criptografadas de forma independente, pois o AES degeneraria em quatro cifras de bloco independentes.
@@ -14,20 +19,6 @@ O ShiftRow é uma transformação mais simples, na qual as linhas são deslocada
 Já o MixColunas é mais complexo, pois realiza a multiplicação de Matrix no campo de Galois e Rijndael entre as colunas da matriz de estado e uma matriz predefinida, afetando todos os bytes da coluna resultante.
 
 ![image](https://github.com/gabrielmtararam/cybersec-crypto-pres/assets/100847921/023cdebd-f0ef-4834-a988-473fbdf4cc93)
-
-
-
-
-
-
-
-
-
-
-A substituição por si só introduz não linearidade, mas carece de distribuição uniforme em todo o estado, tornando-o suscetível a ataques separados em nível de byte. Para aumentar a segurança, as substituições devem ser alternadas com a codificação para garantir que influenciem todos os bytes. Isso aumenta a complexidade algébrica e fortalece o sistema contra a criptoanálise.<br>
-Para imprimir a resposta, usamos a função bytes2matrix, que converte um texto em uma matriz. Ela faz isso separando o texto em pedaços de 4 caracteres e os organiza em diferentes linhas da matriz, além de separar cada caracter em colunas diferentes.
-
-
 
 Solução de problema:
 ```
